@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <title>
+      Function.prototype.call, Function.prototype.apply, Function.prototype.bind
+    </title>
+  </head>
+
+  <body>
+    <a href="/ejercicios/">Go back</a>
+    <p><em>Abre la consola</em></p>
+
+    <ul>
+      <li><button class="call-to-action">Aprender</button></li>
+      <li><button class="call-to-action">Aprender Más</button></li>
+      <li><button class="call-to-action">¡Nunca parar de Aprender!</button></li>
+    </ul>
+
+    <script>// Establece `this` usando `call`
+function saludar() {
+  console.log(`Hola. Soy ${this.name} ${this.apellido}`);
+}
+
+const richard = {
+  name: 'Richard',
+  apellido: 'Kaufman López'
+}; //call todas las funciones la tienne igual en bind, vienen empaquetadas
+//el this que recibe es richard
+
+saludar.call(richard); // Establece `this` usando `call` y pasar argumentos a la función
+
+function caminar(metros, direccion) {
+  console.log(`${this.name} camina ${metros} metros hacia ${direccion}.`);
+}
+
+caminar.call(richard, 400, 'norte'); // Establece `this` usando `apply` y pasar argumentos a la función
+
+const valores = [800, 'noreste'];
+caminar.apply(richard, valores);
+/*
+  Call - comma
+  Apply - arreglo
+*/
+// Establecer `this` en una nueva función usando `bind`
+
+const daniel = {
+  name: 'Daniel',
+  apellido: 'Sánchez'
+}; //bind crea nuevas funciones, por lo que se debe de poner en const danielSaluda,
+//
+
+const danielSaluda = saludar.bind(daniel);
+danielSaluda(); //se guardan parcialmente unos argumentos y despues se añade el resto tecnica couring
+//call apply establece this y llama la funcion inmediatamente
+//bind crea una nueva funcion donde this estara guardado y luego se tendra que llamar a la función
+
+const danielCamina = caminar.bind(daniel, 2000);
+danielCamina('oeste'); // Cuándo es útil usar uno de estos métodos
+//se obtienen los botones con la clase mandada
+
+const buttons = document.getElementsByClassName('call-to-action'); // buttons.forEach(button => {
+//   button.onclick = () => alert('Nunca pares de aprender!');
+// });
+// NodeList
+
+Array.prototype.forEach.call(buttons, button => {
+  button.onclick = () => alert('Nunca pares de aprender!');
+});</script>
+  </body>
+</html>
